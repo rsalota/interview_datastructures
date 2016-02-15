@@ -6,4 +6,5 @@ public interface MyTree {
 	public void printPostOrder();
 	public void balanceTree();
 	public boolean isBinarySearchTree();
+	public boolean isSymmetric(MyTree tree);
 }

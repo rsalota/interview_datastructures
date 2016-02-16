@@ -7,4 +7,6 @@ public interface MyTree {
 	public void balanceTree();
 	public boolean isBinarySearchTree();
 	public boolean isSymmetric(MyTree tree);
+	public boolean findBfs(int value);
+	public boolean findDfs(int value);
 }

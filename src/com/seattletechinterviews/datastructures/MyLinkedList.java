@@ -112,11 +112,10 @@ public class NoniLinkedList implements MyLinkedList {
 		while (n.next != null){
 			n = n.next;	
 		}
-		// add new node to end of list
-		if (n.next == null){
-			n.next = end;
-			end.next = null;
-		}
+		// once n is n.next is null, add new node to end of list
+		n.next = end;
+		end.next = null;
+	
 	}
 	
 	// Count the total number of elements in the linkedlist.
@@ -201,7 +200,26 @@ public class NoniLinkedList implements MyLinkedList {
 	}
 	
 	// Remove duplicates in the list 
-	public void removeDuplicates();
+	public void removeDuplicates(Node head){
+		Node n = head;
+		Node prev = head;
+		int count = 0;
+		HashSet hs = new HashSet();
+		
+		while(n.next != null){
+			if (hs.contains(n.value){
+				prev.next = n.next;
+			}
+			else {
+				hs.add(n);
+				n = n.next;
+				count++;
+				if (count >= 2){
+					prev = prev.next;
+				}
+			}
+		}
+	}
 	
 	// Reverse a linkedlist. 
 	public void reverse(){
@@ -257,10 +275,9 @@ public class NoniLinkedList implements MyLinkedList {
 		finalList[1] = arrOdd;
 		
 		return finalList;
-		
 	}
 	
-	// Given  2 sorted list - merge them to 1 single list. @param list
+	// Given 2 sorted list - merge them to 1 single list. @param list
 	public void mergeSort(MyLinkedList list){
 		
 	}

@@ -42,6 +42,7 @@ public interface MyLinkedList {
 public class NoniLinkedList implements MyLinkedList {
 	
 	Node head;
+	MyLinkedList testList;
 	
 	public static void main (String[] args){
 		
@@ -54,6 +55,10 @@ public class NoniLinkedList implements MyLinkedList {
 	 	
 	 	public Node(int value){
 	 		this.value = value;
+	}
+	
+	public NoniLinkedList (){
+		head = new Node(null);
 	}
 	 
 	// Add a value to the head of the linked list. @param value
@@ -200,7 +205,7 @@ public class NoniLinkedList implements MyLinkedList {
 	}
 	
 	// Remove duplicates in the list 
-	public void removeDuplicates(Node head){
+	public void removeDuplicates(){
 		Node n = head;
 		Node prev = head;
 		int count = 0;
@@ -243,10 +248,10 @@ public class NoniLinkedList implements MyLinkedList {
 	}
 
 	// Break the list into 2 such that all odd location elements belong to 1 list and even locations belong to another. @return
-	public  MyLinkedList[]  alternateSplit(){
+	public  NoniLinkedList[]  alternateSplit(){
 		Node n = head;
 		int count = 1;
-		MyLinkedList[] finalList = new MyLinkedList[2];
+		NoniLinkedList[] finalList = new NoniLinkedList[2];
 		
 		// get size of list
 		while{n.next != null){
@@ -278,8 +283,77 @@ public class NoniLinkedList implements MyLinkedList {
 	}
 	
 	// Given 2 sorted list - merge them to 1 single list. @param list
-	public void mergeSort(MyLinkedList list){
-		
+	public void mergeSort(NoniLinkedList list){
+		NoniLinkedList longerList;
+		Node listNode = list.getFirst();
+		Node testListNode = testList.getFirst();
+		NoniLinkedList newList = new NoniLinkedList();
+		// get size of longest list
+		if (list.size() > testList.size()){
+			longerList = list;
+		} else {
+			longerList = testList;
+		}
+		// use longer list size as while loop limit
+		int length = longerList.size();
+		while (length > 0){
+			if (listNode.value < testListNode.value && listNode != null){
+				newList.add(listNode);
+				// only advance this list if its node was added to new list
+				if (listNode.next != null){
+					listNode = listNode.next;	
+				} // if at end of list, then reassign the node to null, so no double counting
+				else { 
+					listNode = null;
+				}
+			} else if (testListNode.value < listNode.value && testListNode != null){
+				newList.add(testListNode);
+				if (testListNode.next != null){
+					testListNode = testListNode.next;
+				}
+			} else if (listNode.value == testListNode.value && testListNode != null){
+				newList.add(listNode);
+				listNode = listNode.next;
+				testListNode = testListNode.next;
+			} else if (listNode == null){
+				while (testListNode != null){
+					newList.add(testListNode);
+					testListNode = testListNode.next;
+				}
+			} else if (testListNode == null){
+				while (listNode != null){
+					newList.add(listNode);
+					listNode = listNode.next;
+				}
+			}
+			length--;
+		}
+	}
+	
+	public void add(Node n){
+		if (head == null){
+			head = n;
+		} else {
+			while (head.next != null){
+				head = head.next;
+			}
+			head.next = new Node(n.value);
+		}
+	}
+	public Node getFirst(){
+		if (head != null){
+			return head;	
+		} else {
+			return null;
+		}
+	}
+	public int size(){
+		int count = 1;
+		while (head.next != null){
+			head = head.next;
+			count++;
+		}
+		return count;
 	}
 	
 	// Given 2 sorted list build a list that contains the intersection in that list. @param list @return
